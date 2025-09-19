@@ -1,0 +1,13 @@
+.content{
+    background: #1a1a2e;
+}
+
+
+.current-weather{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+}
