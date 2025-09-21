@@ -1,0 +1,15 @@
+.pokemon-card {
+  flex: 0 0 47%;
+}
+
+@media (width >= 48rem) {
+  .pokemon-card {
+    flex: 0 0 31%;
+  }
+}
+
+@media (width >= 64rem) {
+  .pokemon-card {
+    flex: 0 0 22%;
+  }
+}

@@ -5,30 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pokémon</title>
     <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/pokemon.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
     <template id="pokemon-card-template">
-      <div class="flex justify-center">
-        <div class="pokemon-card">
-          <div class="w-64 aspect-square bg-gray-200 rounded-xl">
-            <img class="pokemon-image" />
-          </div>
-          <p class="pokemon-id pl-2 text-gray-500 font-semibold text-sm"></p>
-          <p class="pokemon-name pl-2 pt-2 text-lg font-semibold"></p>
-          <div class="pl-2">
-            <span
-              class="pokemon-type inline-block text-xs px-2 rounded-sm w-18 text-center"
-            ></span>
-            <span
-              class="pokemon-type inline-block text-xs px-2 rounded-sm w-18 text-center"
-            ></span>
-          </div>
+      <div class="pokemon-card">
+        <div class="aspect-square bg-gray-200 rounded-xl">
+          <img class="pokemon-image" />
+        </div>
+        <p class="pokemon-id pl-2 text-gray-500 font-semibold text-sm"></p>
+        <p class="pokemon-name pl-2 pt-2 text-lg font-semibold"></p>
+        <div class="pl-2">
+          <span
+            class="pokemon-type inline-block text-xs px-2 rounded-sm w-18 text-center"
+          ></span>
+          <span
+            class="pokemon-type inline-block text-xs px-2 rounded-sm w-18 text-center"
+          ></span>
         </div>
       </div>
     </template>
 
-    <div id="pokemon-container" class="grid"></div>
+    <div class="flex justify-center">
+      <div
+        id="pokemon-container"
+        class="flex flex-wrap justify-center max-w-3xl m-8 gap-6"
+      ></div>
+    </div>
   </body>
   <script src="../js/pokemon.js"></script>
 </html>
