@@ -1,4 +1,4 @@
-const LIMIT = 20;
+const LIMIT = 12;
 
 const typeES = {
   normal: "Normal",
@@ -22,25 +22,39 @@ const typeES = {
 };
 
 const typeColors = {
+  grass: "lime-500",
   bug: "lime-600",
-  dark: "gray-800",
-  dragon: "indigo-600",
-  electric: "yellow-400",
-  fairy: "pink-400",
-  fighting: "red-700",
-  fire: "red-500",
-  flying: "cyan-300",
-  ghost: "purple-700",
-  grass: "green-500",
+  dark: "neutral-500",
+  dragon: "red-400",
+  electric: "yellow-300",
+  fairy: "pink-300",
+  fighting: "orange-600",
+  fire: "orange-500",
+  flying: "cyan-400",
+  ghost: "slate-500",
   ground: "yellow-600",
-  ice: "cyan-400",
-  normal: "gray-400",
-  poison: "purple-500",
-  psychic: "pink-600",
-  rock: "yellow-800",
-  steel: "gray-500",
-  water: "blue-500",
+  ice: "cyan-500",
+  normal: "neutral-400",
+  poison: "purple-400",
+  psychic: "pink-400",
+  rock: "yellow-600",
+  steel: "neutral-400",
+  water: "sky-600",
 };
+
+const whiteTextTypes = [
+  "poison",
+  "fire",
+  "water",
+  "bug",
+  "dragon",
+  "ghost",
+  "psychic",
+  "dark",
+  "fighting",
+  "poison",
+  "rock",
+];
 
 async function fetchPokemon(offset = 0) {
   try {
@@ -85,13 +99,23 @@ function createPokemonCard(pokemon) {
   );
 
   const firstType = div.querySelector(".pokemon-type");
-  firstType.textContent = capitalizeFirstLetter(pokemon.types[0].type.name);
+  firstType.textContent = capitalizeFirstLetter(
+    typeES[pokemon.types[0].type.name]
+  );
   firstType.classList.add(`bg-${typeColors[pokemon.types[0].type.name]}`);
+  if (whiteTextTypes.includes(pokemon.types[0].type.name)) {
+    firstType.classList.add("text-white");
+  }
 
   if (pokemon.types[1]) {
     const secondType = div.querySelectorAll(".pokemon-type")[1];
-    secondType.textContent = capitalizeFirstLetter(pokemon.types[1].type.name);
+    secondType.textContent = capitalizeFirstLetter(
+      typeES[pokemon.types[1].type.name]
+    );
     secondType.classList.add(`bg-${typeColors[pokemon.types[1].type.name]}`);
+    if (whiteTextTypes.includes(pokemon.types[1].type.name)) {
+      secondType.classList.add("text-white");
+    }
   }
 
   return div;
