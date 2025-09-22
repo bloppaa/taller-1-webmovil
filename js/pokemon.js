@@ -1,4 +1,5 @@
 const LIMIT = 12;
+const TOTAL_POKEMON = 1302;
 let currentPage = 0;
 
 const typeES = {
@@ -57,10 +58,10 @@ const whiteTextTypes = [
   "rock",
 ];
 
-async function fetchPokemon(offset = 0) {
+async function fetchPokemon(limit = LIMIT, offset = 0) {
   try {
     const response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon?limit=${LIMIT}&offset=${offset}`
+      `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
     );
     const data = await response.json();
     const pokemonDetails = await Promise.all(
@@ -124,6 +125,24 @@ function createPokemonCard(pokemon) {
   return div;
 }
 
+async function searchPokemon() {
+  const query = document.getElementById("search-input").value.toLowerCase();
+  if (!query) return;
+
+  document.getElementById("pokemon-container").innerHTML = "";
+
+  try {
+    const pokemon = await fetchPokemon(TOTAL_POKEMON, 0);
+    console.log(pokemon);
+    const filtered = pokemon.filter((p) =>
+      p.name.toLowerCase().includes(query)
+    );
+    displayPokemon(filtered.slice(0, LIMIT));
+  } catch (error) {
+    console.error("Error searching Pokémon:", error);
+  }
+}
+
 function displayPokemon(pokemonList) {
   const container = document.getElementById("pokemon-container");
   pokemonList.forEach((pokemon, i) => {
@@ -148,7 +167,12 @@ document
   .getElementById("load-more-button")
   .addEventListener("click", loadMorePokemon);
 
+document
+  .getElementById("search-button")
+  .addEventListener("click", searchPokemon);
+
 (async () => {
   const pokemonList = await fetchPokemon();
+  document.getElementById("search-input").value = "";
   displayPokemon(pokemonList);
 })();
