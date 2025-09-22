@@ -1,4 +1,5 @@
 const LIMIT = 12;
+let currentPage = 0;
 
 const typeES = {
   normal: "Normal",
@@ -128,6 +129,21 @@ function displayPokemon(pokemonList) {
     container.appendChild(card);
   });
 }
+
+async function loadMorePokemon() {
+  currentPage++;
+  const offset = currentPage * LIMIT;
+  try {
+    const newPokemon = await fetchPokemon(offset);
+    displayPokemon(newPokemon);
+  } catch (error) {
+    console.error("Error loading more Pokémon:", error);
+  }
+}
+
+document
+  .getElementById("load-more-button")
+  .addEventListener("click", loadMorePokemon);
 
 (async () => {
   const pokemonList = await fetchPokemon();
