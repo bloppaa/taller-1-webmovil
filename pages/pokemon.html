@@ -6,6 +6,10 @@
     <title>Pokémon</title>
     <link rel="stylesheet" href="../css/styles.css" />
     <link rel="stylesheet" href="../css/pokemon.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
@@ -27,17 +31,43 @@
       </div>
     </template>
 
-    <div class="flex flex-col items-center justify-center mb-12">
-      <div
-        id="pokemon-container"
-        class="flex flex-wrap justify-center max-w-3xl m-8 gap-6"
-      ></div>
-      <button
-        id="load-more-button"
-        class="hidden mt-8 bg-sky-500 hover:bg-sky-600 text-white font-semibold px-6 py-2 rounded-md cursor-pointer transition-colors"
-      >
-        Cargar más Pokémon
-      </button>
+    <!-- Container principal -->
+    <div class="flex justify-center">
+      <div class="flex flex-col items-center max-w-3xl m-8 gap-6">
+        <div class="w-full text-3xl text-zinc-500 ml-2">Pokédex</div>
+        <div
+          class="bg-zinc-800 h-32 w-screen flex flex-col justify-center items-center"
+        >
+          <div class="w-full h-24 max-w-3xl px-12 flex flex-col gap-4">
+            <div class="text-white text-2xl">Nombre o número</div>
+            <div class="flex justify-between gap-2">
+              <input
+                id="search-input"
+                type="text"
+                class="w-full h-10 rounded-md bg-white px-4 mr-2"
+              />
+              <button
+                id="search-button"
+                class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-2 rounded-md cursor-pointer transition-colors"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          id="pokemon-container"
+          class="flex flex-wrap justify-center gap-6"
+        ></div>
+        <div class="flex justify-center">
+          <button
+            id="load-more-button"
+            class="hidden mt-8 bg-sky-500 hover:bg-sky-600 text-white font-semibold px-6 py-2 rounded-md cursor-pointer transition-colors"
+          >
+            Cargar más Pokémon
+          </button>
+        </div>
+      </div>
     </div>
   </body>
   <script src="../js/pokemon.js"></script>

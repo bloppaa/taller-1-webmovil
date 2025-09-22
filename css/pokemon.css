@@ -2,7 +2,7 @@
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
-  flex: 0 0 47%;
+  flex: 0 0 46%;
 }
 
 .pokemon-card:hover {
