@@ -1,31 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página del Clima</title>
-    <link rel="stylesheet" href="../css/weather.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página del Clima</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class = "app">
-        <div class="content">
+    
+    <div class="app bg-[#0d0f1c] w-full h-screen flex gap-6 p-6">
+
+        <div class="bg-[#313447] rounded-lg h-full p-6">
+            
+        </div>
+
+        <div class="content p-6 rounded-lg flex flex-col gap-6">
+        
             <div class="search">
-                <input type="text" placeholder="Buscar Ciudades">
-            </div>
-        
-
-        <div class="current-weather">
-
-            <div class="weather-info">
-                <h1>Madrid</h1>
-                <p>Chance of rain: 0%</p>
-                <h2>32°</h2>
+                <input 
+                type="text" 
+                placeholder="Search for cities"
+                class="w-full rounded-md px-4 py-2 
+                bg-[#313447] placeholder-gray-300
+                focus:outline-none focus:ring-2 focus:ring-sky-500"
+                >
             </div>
 
-            <img src="../img/sun.png" alt="sol" class="icon-sun" width="100">
+            <div class="current-weather flex items-center justify-between rounded-lg p-5 text-white">
+                
+                <div class="weather-info">
+                <h1 class="text-2xl font-bold">Madrid</h1>
+                <p class="text-gray-400">Chance of rain: 0%</p>
+                <h2 class="text-4xl font-semibold">32°</h2>
+                </div>
+
+                <img src="../img/sun.png" alt="sol" class="w-24 h-24">
+            </div>
+
+            <div class = "todays-forecast bg-[#313447] rounded-lg p-5">
+                <h3 class="text-gray-300 text-sm">Today's forecast</h3>
+
+            </div>
+            <div class="air-conditions bg-[#313447] rounded-lg p-5 flex flex-col gap-4">
+
+            <h5 class="text-gray-300 text-sm font-semibold">Air conditions</h5>
+
+            <div class="grid grid-cols-2 gap-4">
+
+                <div class="rounded-lg p-3 text-gray-300 text-sm text-center">Real Feels</div>
+                <div class="rounded-lg p-3 text-gray-300 text-sm text-center">Wind</div>
+                <div class="rounded-lg p-3 text-gray-300 text-sm text-center">Chance of Rain</div>
+                <div class="rounded-lg p-3 text-gray-300 text-sm text-center">IV Index</div>
+
+            </div>
+
+            </div>
+
         </div>
+            <div class="bg-[#313447] rounded-lg w-1/4 h-full p-6">
+            
         </div>
-        
     </div>
 </body>
 </html>
