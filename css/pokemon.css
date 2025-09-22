@@ -1,10 +1,18 @@
 .pokemon-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
   flex: 0 0 47%;
 }
 
 .pokemon-card:hover {
   transform: scale(1.05);
   transition: transform 0.3s;
+}
+
+.pokemon-card.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (width >= 48rem) {

@@ -119,6 +119,8 @@ function createPokemonCard(pokemon) {
     }
   }
 
+  setTimeout(() => div.classList.add("show"), 10);
+
   return div;
 }
 
