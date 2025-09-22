@@ -2,6 +2,11 @@
   flex: 0 0 47%;
 }
 
+.pokemon-card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s;
+}
+
 @media (width >= 48rem) {
   .pokemon-card {
     flex: 0 0 31%;
