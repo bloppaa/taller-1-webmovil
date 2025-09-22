@@ -126,10 +126,11 @@ function createPokemonCard(pokemon) {
 
 function displayPokemon(pokemonList) {
   const container = document.getElementById("pokemon-container");
-  pokemonList.forEach((pokemon) => {
+  pokemonList.forEach((pokemon, i) => {
     const card = createPokemonCard(pokemon);
     container.appendChild(card);
   });
+  document.getElementById("load-more-button").classList.remove("hidden");
 }
 
 async function loadMorePokemon() {
