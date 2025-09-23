@@ -1,6 +1,7 @@
 const LIMIT = 12;
 const TOTAL_POKEMON = 1302;
 let currentPage = 0;
+let inSearchPage = false;
 
 const typeES = {
   normal: "Normal",
@@ -129,15 +130,19 @@ async function searchPokemon() {
   const query = document.getElementById("search-input").value.toLowerCase();
   if (!query && !inSearchPage) return;
 
+  document.getElementById("load-more-button").classList.add("hidden");
+  document.getElementById("loading-spinner").classList.remove("hidden");
   document.getElementById("pokemon-container").innerHTML = "";
 
   try {
     const pokemon = await fetchPokemon(TOTAL_POKEMON, 0);
-    console.log(pokemon);
     const filtered = pokemon.filter((p) =>
       p.name.toLowerCase().includes(query)
     );
     displayPokemon(filtered.slice(0, LIMIT));
+
+    document.getElementById("load-more-button").classList.remove("hidden");
+    document.getElementById("loading-spinner").classList.add("hidden");
   } catch (error) {
     console.error("Error searching Pokémon:", error);
   }
@@ -170,6 +175,14 @@ document
 document
   .getElementById("search-button")
   .addEventListener("click", searchPokemon);
+
+document
+  .getElementById("search-input")
+  .addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      searchPokemon();
+    }
+  });
 
 (async () => {
   const pokemonList = await fetchPokemon();
