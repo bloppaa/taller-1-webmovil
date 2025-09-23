@@ -14,9 +14,23 @@
     
     <div class="app bg-[#0d0f1c] w-full h-screen flex gap-6 p-6">
 
-        <div class="bg-[#313447] rounded-lg h-full p-6">
+        <aside class="bg-[#313447] rounded-lg h-full p-6">
             
-        </div>
+            <nav class="mt-6 flex flex-col gap-4 text-gray-300">
+                <div class="flex flex-col items-center gap-2 text-gray-300 hover:text-sky-400 cursor-pointer">
+                    <i class="fa-solid fa-cloud-sun"></i>
+                    <a href="#">Weather</a>
+                </div>
+                <div class="flex flex-col items-center gap-2 text-gray-300 hover:text-sky-400 cursor-pointer">
+                    <i class="fa-solid fa-city" ></i>
+                    <a href="#">Cities</a>
+                </div>
+                <div class="flex flex-col items-center gap-2 text-gray-300 hover:text-sky-400 cursor-pointer">
+                    <i class="fa-solid fa-gear"></i>
+                    <a href="#">Settings</a>
+                </div>
+            </nav>
+        </aside>
 
         <div class="content p-6 rounded-lg flex flex-col gap-6">
         
@@ -42,7 +56,7 @@
             </div>
 
             <div class = "todays-forecast bg-[#313447] rounded-lg p-5">
-                <h3 class="text-gray-300 text-sm">Today's forecast</h3>
+                <h3 class="text-gray-300 text-sm font-semibold">Today's forecast</h3>
 
             </div>
             <div class="air-conditions bg-[#313447] rounded-lg p-5 flex flex-col gap-4">
@@ -74,6 +88,8 @@
 
         </div>
             <div class="bg-[#313447] rounded-lg w-1/4 h-full p-6">
+                <h5 class="text-gray-300 text-sm font-semibold">7 day Forecast</h5>
+            </div>
             
         </div>
     </div>
