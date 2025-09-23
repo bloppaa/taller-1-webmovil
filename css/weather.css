@@ -1,13 +1,20 @@
-.content{
-    background: #1a1a2e;
+.weather-card {
+  flex: 0 0 46%; 
+  transition: transform 0.3s;
 }
 
+.weather-card:hover {
+  transform: scale(1.05);
+}
 
-.current-weather{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 10px;
-    padding: 20px;
-    color: white;
+@media (width >= 48rem) {
+  .weather-card {
+    flex: 0 0 31%;
+  }
+}
+
+@media (width >= 64rem) {
+  .weather-card {
+    flex: 0 0 22%; 
+  }
 }
