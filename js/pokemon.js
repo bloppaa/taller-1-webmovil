@@ -127,7 +127,7 @@ function createPokemonCard(pokemon) {
 
 async function searchPokemon() {
   const query = document.getElementById("search-input").value.toLowerCase();
-  if (!query) return;
+  if (!query && !inSearchPage) return;
 
   document.getElementById("pokemon-container").innerHTML = "";
 
@@ -156,7 +156,7 @@ async function loadMorePokemon() {
   currentPage++;
   const offset = currentPage * LIMIT;
   try {
-    const newPokemon = await fetchPokemon(offset);
+    const newPokemon = await fetchPokemon(LIMIT, offset);
     displayPokemon(newPokemon);
   } catch (error) {
     console.error("Error loading more Pokémon:", error);
