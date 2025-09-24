@@ -2,6 +2,7 @@ const LIMIT = 12;
 const TOTAL_POKEMON = 1302;
 let currentPage = 0;
 let inSearchPage = false;
+let filteredPokemon = [];
 
 const typeES = {
   normal: "Normal",
@@ -136,10 +137,10 @@ async function searchPokemon() {
 
   try {
     const pokemon = await fetchPokemon(TOTAL_POKEMON, 0);
-    const filtered = pokemon.filter((p) =>
+    filteredPokemon = pokemon.filter((p) =>
       p.name.toLowerCase().includes(query)
     );
-    displayPokemon(filtered.slice(0, LIMIT));
+    displayPokemon(filteredPokemon.slice(0, LIMIT));
 
     document.getElementById("load-more-button").classList.remove("hidden");
     document.getElementById("loading-spinner").classList.add("hidden");
@@ -154,17 +155,30 @@ function displayPokemon(pokemonList) {
     const card = createPokemonCard(pokemon);
     container.appendChild(card);
   });
-  document.getElementById("load-more-button").classList.remove("hidden");
+
+  const totalShown = container.children.length;
+  const totalAvailable =
+    filteredPokemon.length > 0 ? filteredPokemon.length : TOTAL_POKEMON;
+  if (totalShown === totalAvailable) {
+    document.getElementById("load-more-button").classList.add("hidden");
+  } else {
+    document.getElementById("load-more-button").classList.remove("hidden");
+  }
 }
 
 async function loadMorePokemon() {
   currentPage++;
   const offset = currentPage * LIMIT;
-  try {
-    const newPokemon = await fetchPokemon(LIMIT, offset);
-    displayPokemon(newPokemon);
-  } catch (error) {
-    console.error("Error loading more Pokémon:", error);
+  if (filteredPokemon.length > 0) {
+    const nextBatch = filteredPokemon.slice(offset, offset + LIMIT);
+    displayPokemon(nextBatch);
+  } else {
+    try {
+      const newPokemon = await fetchPokemon(LIMIT, offset);
+      displayPokemon(newPokemon);
+    } catch (error) {
+      console.error("Error loading more Pokémon:", error);
+    }
   }
 }
 
