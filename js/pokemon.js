@@ -4,6 +4,7 @@ const TOTAL_POKEMON_REAL = 1025;
 let currentPage = 0;
 let filteredPokemon = [];
 let previousSearch = "";
+let isRandomMode = false;
 
 const typeES = {
   normal: "Normal",
@@ -239,6 +240,10 @@ function displayPokemon(pokemonList) {
 }
 
 async function loadMorePokemon() {
+  if (isRandomMode) {
+    loadRandomPokemon();
+    return;
+  }
   currentPage++;
   const offset = currentPage * LIMIT;
   if (filteredPokemon.length > 0) {
@@ -253,6 +258,33 @@ async function loadMorePokemon() {
     }
   }
 }
+
+async function loadRandomPokemon() {
+  const randomNumbers = [];
+  while (randomNumbers.length < LIMIT) {
+    const num = Math.floor(Math.random() * TOTAL_POKEMON_REAL) + 1;
+    if (!randomNumbers.includes(num)) {
+      randomNumbers.push(num);
+    }
+  }
+
+  const pokemonDetails = await Promise.all(
+    randomNumbers.map((num) =>
+      getPokemonDetails(`https://pokeapi.co/api/v2/pokemon/${num}`)
+    )
+  );
+  document.getElementById("loading-spinner").classList.add("hidden");
+  displayPokemon(pokemonDetails);
+}
+
+const randomBtn = document.getElementById("random-button");
+randomBtn.addEventListener("click", () => {
+  isRandomMode = true;
+  document.getElementById("pokemon-container").innerHTML = "";
+  document.getElementById("load-more-button").classList.add("hidden");
+  document.getElementById("loading-spinner").classList.remove("hidden");
+  loadRandomPokemon();
+});
 
 document
   .getElementById("load-more-button")
