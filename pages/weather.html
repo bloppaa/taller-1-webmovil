@@ -1,100 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Página del Clima</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página del Clima</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-</head>
-<body>
-    
+    <style>
+      div {
+        outline: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
     <div class="app bg-[#0d0f1c] w-full h-screen flex gap-6 p-6">
+      <aside class="bg-[#313447] rounded-lg h-full p-6">
+        <nav class="mt-6 flex flex-col gap-6 text-gray-300">
+          <button
+            onclick="showSection('weather')"
+            class="flex flex-col items-center gap-2 hover:text-sky-400 cursor-pointer"
+          >
+            <i class="fa-solid fa-cloud-sun"></i>
+            <span>Weather</span>
+          </button>
 
-        <aside class="bg-[#313447] rounded-lg h-full p-6">
-            <nav class="mt-6 flex flex-col gap-6 text-gray-300">
-                
-                <button onclick="showSection('weather')" class="flex flex-col items-center gap-2 hover:text-sky-400 cursor-pointer">
-                    <i class="fa-solid fa-cloud-sun"></i>
-                    <span>Weather</span>
-                </button>
+          <button
+            onclick="showSection('cities')"
+            class="flex flex-col items-center gap-2 hover:text-sky-400 cursor-pointer"
+          >
+            <i class="fa-solid fa-city"></i>
+            <span>Cities</span>
+          </button>
 
-                <button onclick="showSection('cities')" class="flex flex-col items-center gap-2 hover:text-sky-400 cursor-pointer">
-                    <i class="fa-solid fa-city"></i>
-                    <span>Cities</span>
-                </button>
+          <button
+            onclick="showSection('settings')"
+            class="flex flex-col items-center gap-2 hover:text-sky-400 cursor-pointer"
+          >
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+          </button>
+        </nav>
+      </aside>
 
-                <button onclick="showSection('settings')" class="flex flex-col items-center gap-2 hover:text-sky-400 cursor-pointer">
-                    <i class="fa-solid fa-gear"></i>
-                    <span>Settings</span>
-                </button>
-            </nav>
-        </aside>
-
-
-        <div class="content p-6 rounded-lg flex flex-col gap-6">
-        
-            <div class="search">
-                <input 
-                type="text" 
-                placeholder="Search for cities"
-                class="w-full rounded-md px-4 py-2 
-                bg-[#313447] placeholder-gray-300
-                focus:outline-none focus:ring-2 focus:ring-sky-500"
-                >
-            </div>
-
-            <div class="current-weather flex items-center justify-between rounded-lg p-5 text-white">
-                
-                <div class="weather-info">
-                <h1 class="text-2xl font-bold">Madrid</h1>
-                <p class="text-gray-400">Chance of rain: 0%</p>
-                <h2 class="text-4xl font-semibold">32°</h2>
-                </div>
-
-                <img src="../img/sun.png" alt="sol" class="w-24 h-24">
-            </div>
-
-            <div class = "todays-forecast bg-[#313447] rounded-lg p-5">
-                <h3 class="text-gray-300 text-sm font-semibold">Today's forecast</h3>
-
-            </div>
-            <div class="air-conditions bg-[#313447] rounded-lg p-5 flex flex-col gap-4">
-
-            <h5 class="text-gray-300 text-sm font-semibold">Air conditions</h5>
-
-            <div class="grid grid-cols-2 gap-4">
-                
-                <div class="rounded-lg p-3 text-gray-300 text-sm text-center">
-                    <i class="fa-solid fa-temperature-half" style="color: #ffffff;"></i>
-                    Real Feels
-                </div>
-                <div class="rounded-lg p-3 text-gray-300 text-sm text-center">
-                    <i class="fa-solid fa-wind" style="color: #ffffff;"></i>
-                    Wind
-                </div>
-                <div class="rounded-lg p-3 text-gray-300 text-sm text-center">
-                    <i class="fa-solid fa-cloud-rain" style="color: #ffffff;"></i>
-                    Chance of Rain
-                </div>
-                <div class="rounded-lg p-3 text-gray-300 text-sm text-center">
-                    <i class="fa-solid fa-sun" style="color: #ffffff;"></i>
-                    IV Index
-                </div>
-
-            </div>
-
-            </div>
-
+      <div class="content p-6 rounded-lg flex flex-col gap-6">
+        <div class="search">
+          <input
+            type="text"
+            placeholder="Search for cities"
+            class="w-full rounded-md px-4 py-2 bg-[#313447] placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-500"
+          />
         </div>
-            <div class="bg-[#313447] rounded-lg w-1/4 h-full p-6">
-                <h5 class="text-gray-300 text-sm font-semibold">7 day Forecast</h5>
-            </div>
-            
+
+        <div
+          class="current-weather flex items-center justify-between rounded-lg p-5 text-white"
+        >
+          <div class="weather-info">
+            <h1 class="text-2xl font-bold">Madrid</h1>
+            <p class="text-gray-400">Chance of rain: 0%</p>
+            <h2 class="text-4xl font-semibold">32°</h2>
+          </div>
+
+          <img src="../img/sun.png" alt="sol" class="w-24 h-24" />
         </div>
+
+        <div class="todays-forecast bg-[#313447] rounded-lg p-5">
+          <h3 class="text-gray-300 text-sm font-semibold">Today's forecast</h3>
+        </div>
+        <div
+          class="air-conditions bg-[#313447] rounded-lg p-5 flex flex-col gap-4"
+        >
+          <h5 class="text-gray-300 text-sm font-semibold">Air conditions</h5>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="rounded-lg p-3 text-gray-300 text-sm text-center">
+              <i
+                class="fa-solid fa-temperature-half"
+                style="color: #ffffff"
+              ></i>
+              Real Feels
+            </div>
+            <div class="rounded-lg p-3 text-gray-300 text-sm text-center">
+              <i class="fa-solid fa-wind" style="color: #ffffff"></i>
+              Wind
+            </div>
+            <div class="rounded-lg p-3 text-gray-300 text-sm text-center">
+              <i class="fa-solid fa-cloud-rain" style="color: #ffffff"></i>
+              Chance of Rain
+            </div>
+            <div class="rounded-lg p-3 text-gray-300 text-sm text-center">
+              <i class="fa-solid fa-sun" style="color: #ffffff"></i>
+              IV Index
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-[#313447] rounded-lg w-1/4 h-full p-6">
+        <h5 class="text-gray-300 text-sm font-semibold">7 day Forecast</h5>
+      </div>
     </div>
-</body>
+  </body>
 </html>
