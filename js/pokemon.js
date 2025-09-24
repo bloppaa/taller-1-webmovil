@@ -169,8 +169,8 @@ async function searchPokemon() {
   document.getElementById("no-results-message").classList.remove("show");
 
   if (!query) {
-    filteredPokemon = [];
     currentPage = 0;
+    filteredPokemon = [];
 
     document.getElementById("pokemon-container").innerHTML = "";
     document.getElementById("load-more-button").classList.add("hidden");
@@ -201,6 +201,8 @@ async function searchPokemon() {
       showNoResultsMessage();
       return;
     }
+
+    currentPage = 0;
     displayPokemon(filteredPokemon.slice(0, LIMIT));
 
     document.getElementById("loading-spinner").classList.add("hidden");
