@@ -7,6 +7,14 @@ const resources = [
       icon: '⚡',
       page: 'pages/pokemon.html'
     },
+    {
+      id: 'recipes',
+      title: 'Recetas',
+      description: 'Recetas de cocina deliciosas',
+      endpoint: 'https://api.spoonacular.com/recipes',
+      icon: '🍳',
+      page: 'pages/recipes.html'
+    },
 
   ];
 
@@ -39,5 +47,21 @@ async function preloadPokemonData() {
   }
 }
 
-// Llamar a la precarga cuando la página cargue
-window.addEventListener('DOMContentLoaded', preloadPokemonData);
+// Precargar recetas aleatorias para mostrar en preview
+async function preloadRecipesData() {
+  try {
+    if (typeof RecipesAPI !== 'undefined') {
+      const recipesAPI = new RecipesAPI();
+      const recipes = await recipesAPI.getRandomRecipes(3);
+      console.log('Recetas precargadas:', recipes.map(r => r.title));
+    }
+  } catch (error) {
+    console.error('Error precargando recetas:', error);
+  }
+}
+
+// Llamar a las precargas cuando la página cargue
+window.addEventListener('DOMContentLoaded', function() {
+  preloadPokemonData();
+  preloadRecipesData();
+});
