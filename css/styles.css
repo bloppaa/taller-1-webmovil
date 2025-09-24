@@ -1,26 +1,128 @@
-/* Estilos personalizados para el proyecto WebMóvil */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-/* Animaciones personalizadas */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.95); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(167, 139, 250, 0.6);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 .fade-in {
-    animation: fadeIn 0.5s ease-out;
+    animation: fadeIn 0.8s ease-out forwards;
 }
 
-/* Efecto hover mejorado para tarjetas */
+.card-appear {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-appear.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.animate-slideUp {
+    animation: slideUp 1s ease-out forwards;
+}
+
+.animate-glow {
+    animation: glow 3s ease-in-out infinite;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Efectos de tarjetas mejorados */
 .card-hover {
-    transition: all 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
 .card-hover:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
-/* Truncar texto a múltiples líneas */
+.card-hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: left 0.6s ease;
+}
+
+.card-hover:hover::before {
+    left: 100%;
+}
+
+/* Efecto glassmorphism mejorado */
+.glass-card {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
 .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -35,12 +137,10 @@
     overflow: hidden;
 }
 
-/* Estilos para el modal */
 .modal-backdrop {
     backdrop-filter: blur(4px);
 }
 
-/* Scrollbar personalizado */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -58,14 +158,12 @@
     background: #555;
 }
 
-/* Responsive adjustments */
 @media (max-width: 640px) {
     .grid-responsive {
         grid-template-columns: 1fr;
     }
 }
 
-/* Loading spinner personalizado */
 .spinner {
     border: 3px solid #f3f3f3;
     border-top: 3px solid #f97316;
@@ -80,7 +178,6 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Estilos para badges/etiquetas */
 .badge {
     display: inline-block;
     padding: 0.25rem 0.5rem;
@@ -115,7 +212,6 @@
     box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
 }
 
-/* Estilo para las imágenes de recetas */
 .recipe-image {
     transition: transform 0.3s ease;
 }
@@ -123,8 +219,6 @@
 .recipe-image:hover {
     transform: scale(1.05);
 }
-
-/* Efectos de glassmorphism para elementos especiales */
 .glass {
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
@@ -147,13 +241,67 @@
     }
 }
 
-/* Estilos para el estado de error */
 .error-state {
     background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
     border-left: 4px solid #ef4444;
 }
 
-/* Mejorar la legibilidad del texto en imágenes */
 .text-shadow {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Efectos adicionales para el diseño moderno */
+.gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.neon-glow {
+    box-shadow: 
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 40px currentColor;
+}
+
+/* Efectos de hover para botones */
+.btn-hover {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-hover::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-hover:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Responsive mejorado */
+@media (max-width: 768px) {
+    .card-hover {
+        transform: none;
+    }
+    
+    .card-hover:hover {
+        transform: translateY(-4px);
+    }
+    
+    .fade-in {
+        animation-delay: 0s !important;
+    }
 }

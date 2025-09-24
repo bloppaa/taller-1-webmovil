@@ -6,27 +6,100 @@
   <title>WebMóvil - Taller1</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="bg-gray-100 relative min-h-screen">
-  <!-- Header fijo en la parte superior -->
-  <header class="bg-blue-600 text-white p-4 shadow-md fixed top-0 left-0 w-full z-10">
-    <h1 class="text-2xl font-bold">Info WebMóvil</h1>
-    <p class="text-sm">Centro de información Dinámica</p>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen font-sans">
+  <!-- Particles background -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-4 -left-4 w-72 h-72 bg-purple-500 rounded-full opacity-10 animate-pulse"></div>
+    <div class="absolute top-1/4 right-1/4 w-48 h-48 bg-blue-500 rounded-full opacity-10 animate-bounce"></div>
+    <div class="absolute bottom-1/4 left-1/3 w-64 h-64 bg-pink-500 rounded-full opacity-10 animate-pulse"></div>
+  </div>
+
+  <!-- Header moderno -->
+  <header class="relative backdrop-blur-md bg-white/10 border-b border-white/20 p-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+            WebMóvil
+          </h1>
+          <p class="text-purple-200 text-sm">Centro de APIs Dinámicas</p>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center space-x-4">
+        <div class="px-4 py-2 bg-white/10 rounded-full backdrop-blur-sm border border-white/20">
+          <span class="text-white/80 text-sm">APIs Integradas</span>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <!-- Contenido principal con padding para compensar el header fijo -->
-  <main class="p-4 pt-24"> <!-- pt-24 para evitar solapamiento con header fijo -->
-    <h2 class="text-xl font-semibold mb-4">API's Disponible</h2>
-    
-    <!-- Grid de recursos con posición relativa -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative" id="resources-grid">
-      <!-- Los recursos se cargan dinámicamente con JS -->
+  <!-- Hero Section -->
+  <section class="relative py-20 px-6">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="animate-slideUp">
+        <h2 class="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent leading-tight">
+          Explora el Mundo
+          <br>
+          <span class="text-4xl md:text-5xl">de las APIs</span>
+        </h2>
+        <p class="text-xl text-purple-200 mb-12 max-w-2xl mx-auto leading-relaxed">
+          Descubre información fascinante sobre Pokémon, recetas deliciosas, .....  y el clima mundial. 
+          Todo integrado con APIs reales.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid  -->
+  <main class="relative px-6 pb-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h3 class="text-3xl font-bold text-white mb-4">APIs Disponibles</h3>
+        <p class="text-purple-200">Haz clic en cualquier tarjeta para comenzar tu exploración</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="resources-grid">
+      </div>
     </div>
   </main>
 
-  <!-- Footer sticky que se pega al final -->
-  <footer class="bg-gray-800 text-white p-4 mt-8 sticky bottom-0">
-    <p class="text-center text-sm">&copy; 2025 WebMóvil - Taller 1</p>
+  <!-- Footer -->
+  <footer class="relative mt-20 backdrop-blur-md bg-black/20 border-t border-white/10 py-12">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <div class="mb-8">
+        <div class="flex items-center justify-center space-x-6 mb-6">
+          <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+          </div>
+          <span class="text-2xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+            WebMóvil 
+          </span>
+        </div>
+        <p class="text-purple-200 mb-6 max-w-md mx-auto">
+          Conectando el mundo a través de APIs modernas y diseño innovador.
+        </p>
+      </div>
+      
+      <div class="border-t border-white/10 pt-6">
+        <p class="text-purple-200/80 text-sm">
+          &copy; 2025 WebMóvil - Taller 1 
+        </p>
+      </div>
+    </div>
   </footer>
 
   <script src="js/api.js"></script>

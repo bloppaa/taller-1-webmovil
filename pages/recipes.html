@@ -12,7 +12,7 @@
     <header class="bg-orange-600 text-white p-4 shadow-md">
         <div class="flex items-center justify-between">
             <div>
-                <h1 class="text-2xl font-bold"> Recetas Deliciosas</h1>
+                <h1 class="text-2xl font-bold">Recetas Deliciosas</h1>
                 <p class="text-sm">Descubre recetas increíbles</p>
             </div>
             <button onclick="window.location.href='../index.html'" 
@@ -32,11 +32,11 @@
                        class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                 <button onclick="searchRecipes()" 
                         class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg transition">
-                    🔍 Buscar
+                    Buscar
                 </button>
                 <button onclick="loadRandomRecipes()" 
                         class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition">
-                    🎲 Aleatorias
+                    Aleatorias
                 </button>
             </div>
         </div>
@@ -50,14 +50,12 @@
             <p class="mt-2 text-gray-600">Cargando recetas...</p>
         </div>
 
-        <!-- Error message -->
         <div id="error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
             <span id="errorMessage"></span>
         </div>
 
         <!-- Recipes grid -->
         <div id="recipesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            <!-- Las recetas se cargarán aquí dinámicamente -->
         </div>
     </main>
 
@@ -70,7 +68,6 @@
                     <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
                 </div>
                 <div id="modalContent">
-                    <!-- Contenido del modal se carga dinámicamente -->
                 </div>
             </div>
         </div>
@@ -81,12 +78,10 @@
     <script>
         let recipesAPI;
 
-        // Inicializar cuando se carga la página
         document.addEventListener('DOMContentLoaded', function() {
             recipesAPI = new RecipesAPI();
             loadRandomRecipes();
             
-            // Permitir buscar con Enter
             document.getElementById('searchInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     searchRecipes();
@@ -94,25 +89,21 @@
             });
         });
 
-        // Mostrar loading
         function showLoading() {
             document.getElementById('loading').classList.remove('hidden');
             document.getElementById('error').classList.add('hidden');
         }
 
-        // Ocultar loading
         function hideLoading() {
             document.getElementById('loading').classList.add('hidden');
         }
 
-        // Mostrar error
         function showError(message) {
             document.getElementById('errorMessage').textContent = message;
             document.getElementById('error').classList.remove('hidden');
             hideLoading();
         }
 
-        // Cargar recetas aleatorias
         async function loadRandomRecipes() {
             showLoading();
             try {
@@ -142,7 +133,6 @@
             }
         }
 
-        // Mostrar recetas en el grid
         function displayRecipes(recipes) {
             const grid = document.getElementById('recipesGrid');
             
@@ -164,8 +154,8 @@
                     <div class="p-4">
                         <h3 class="font-bold text-lg mb-2 line-clamp-2">${recipe.title}</h3>
                         <div class="flex items-center justify-between text-sm text-gray-600">
-                            <span>⏱️ ${recipe.readyInMinutes || 'N/A'} min</span>
-                            <span>👥 ${recipe.servings || 'N/A'} porciones</span>
+                            <span> ${recipe.readyInMinutes || 'N/A'} min</span>
+                            <span> ${recipe.servings || 'N/A'} porciones</span>
                         </div>
                         ${recipe.dishTypes && recipe.dishTypes.length > 0 ? `
                             <div class="mt-2">
@@ -179,7 +169,6 @@
             `).join('');
         }
 
-        // Mostrar detalles de receta
         async function showRecipeDetails(recipeId) {
             try {
                 showLoading();
@@ -252,12 +241,10 @@
             }
         }
 
-        // Cerrar modal
         function closeModal() {
             document.getElementById('recipeModal').classList.add('hidden');
         }
 
-        // Cerrar modal al hacer clic fuera
         document.getElementById('recipeModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();

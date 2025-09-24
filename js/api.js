@@ -1,4 +1,3 @@
-// Configuración de APIs
 const API_CONFIG = {
     SPOONACULAR: {
         BASE_URL: 'https://api.spoonacular.com/recipes',
@@ -11,7 +10,6 @@ const API_CONFIG = {
     }
 };
 
-// Función para hacer llamadas a la API de Spoonacular
 class RecipesAPI {
     constructor() {
         this.apiKey = API_CONFIG.SPOONACULAR.API_KEY;
