@@ -5,6 +5,10 @@
   flex: 0 0 46%;
 }
 
+.search-div {
+  width: inherit
+}
+
 #no-results-message {
   opacity: 0;
   transform: translateY(20px);
@@ -24,6 +28,18 @@
 @media (width >= 48rem) {
   .pokemon-card {
     flex: 0 0 31%;
+  }
+
+  .black-div {
+    flex-direction: row;
+  }
+
+  .search-div {
+    max-width: 600px;
+  }
+
+  .search-info {
+    max-width: 500px;
   }
 }
 

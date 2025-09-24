@@ -188,7 +188,7 @@ async function searchPokemon() {
   try {
     if (isValidPokemonNumber(query)) {
       const pokemon = await getPokemonDetails(
-        `https://pokeapi.co/api/v2/pokemon/${query}`
+        `https://pokeapi.co/api/v2/pokemon/${Number(query)}`
       );
       filteredPokemon = [pokemon];
     } else {
