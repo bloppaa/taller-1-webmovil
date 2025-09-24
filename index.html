@@ -7,18 +7,38 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-gray-100">
-  <header class="bg-blue-600 text-white p-4 shadow-md">
+<body class="bg-gray-100 relative min-h-screen">
+  <!-- Header fijo en la parte superior -->
+  <header class="bg-blue-600 text-white p-4 shadow-md fixed top-0 left-0 w-full z-10">
     <h1 class="text-2xl font-bold">Info WebMóvil</h1>
     <p class="text-sm">Centro de información Dinámica</p>
   </header>
 
-  <main class="p-4">
+  <!-- Contenido principal con padding para compensar el header fijo -->
+  <main class="p-4 pt-24"> <!-- pt-24 para evitar solapamiento con header fijo -->
     <h2 class="text-xl font-semibold mb-4">API's Disponible</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="resources-grid">
+    
+    <!-- Grid de recursos con posición relativa -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative" id="resources-grid">
       <!-- Los recursos se cargan dinámicamente con JS -->
     </div>
+
+    <!-- Elemento adicional con posición relativa y badge absoluto -->
+    <div class="relative mt-8 bg-white rounded-lg p-6 shadow-md">
+      <h3 class="text-lg font-bold mb-2">Explora nuestras APIs</h3>
+      <p class="text-gray-600">Selecciona cualquier recurso para ver información detallada.</p>
+      
+      <!-- Badge con posición absoluta -->
+      <span class="absolute -top-3 -right-3 bg-green-500 text-white text-xs px-3 py-1 rounded-full shadow">
+        ¡Nuevo!
+      </span>
+    </div>
   </main>
+
+  <!-- Footer sticky que se pega al final -->
+  <footer class="bg-gray-800 text-white p-4 mt-8 sticky bottom-0">
+    <p class="text-center text-sm">&copy; 2025 WebMóvil - Taller 1</p>
+  </footer>
 
   <script src="js/api.js"></script>
   <script src="js/main.js"></script>
