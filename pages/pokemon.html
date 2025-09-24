@@ -65,7 +65,15 @@
             </div>
           </div>
         </div>
-        <div role="status" class="hidden" id="loading-spinner">
+        <div
+          id="no-results-message"
+          class="hidden flex flex-col items-center gap-4"
+        >
+          <p class="text-red-400 text-xl font-semibold">
+            Ningún Pokémon coincide con tu búsqueda.
+          </p>
+        </div>
+        <div role="status" class="mt-5 hidden" id="loading-spinner">
           <svg
             aria-hidden="true"
             class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"

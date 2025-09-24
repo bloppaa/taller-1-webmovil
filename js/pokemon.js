@@ -136,6 +136,9 @@ async function searchPokemon() {
   if (query === previousSearch) return;
   previousSearch = query;
 
+  document.getElementById("no-results-message").classList.add("hidden");
+  document.getElementById("no-results-message").classList.remove("show");
+
   if (!query) {
     filteredPokemon = [];
     currentPage = 0;
@@ -172,6 +175,12 @@ async function searchPokemon() {
 
 function showNoResultsMessage() {
   document.getElementById("loading-spinner").classList.add("hidden");
+
+  const noResultsMessage = document.getElementById("no-results-message");
+  noResultsMessage.classList.remove("hidden");
+  setTimeout(() => {
+    noResultsMessage.classList.add("show");
+  }, 10);
 }
 
 function displayPokemon(pokemonList) {
@@ -184,8 +193,7 @@ function displayPokemon(pokemonList) {
   const totalShown = container.children.length;
   const totalAvailable =
     filteredPokemon.length > 0 ? filteredPokemon.length : TOTAL_POKEMON;
-  console.log({ totalShown, totalAvailable });
-  if (totalShown === totalAvailable) {
+  if (totalShown >= totalAvailable) {
     document.getElementById("load-more-button").classList.add("hidden");
   } else {
     document.getElementById("load-more-button").classList.remove("hidden");

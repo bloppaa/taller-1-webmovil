@@ -5,6 +5,17 @@
   flex: 0 0 46%;
 }
 
+#no-results-message {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#no-results-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .pokemon-card:hover {
   transform: scale(1.05);
   transition: transform 0.3s;
