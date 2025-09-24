@@ -15,22 +15,25 @@
     <div class="app bg-[#0d0f1c] w-full h-screen flex gap-6 p-6">
 
         <aside class="bg-[#313447] rounded-lg h-full p-6">
-            
-            <nav class="mt-6 flex flex-col gap-4 text-gray-300">
-                <div class="flex flex-col items-center gap-2 text-gray-300 hover:text-sky-400 cursor-pointer">
+            <nav class="mt-6 flex flex-col gap-6 text-gray-300">
+                
+                <button onclick="showSection('weather')" class="flex flex-col items-center gap-2 hover:text-sky-400 cursor-pointer">
                     <i class="fa-solid fa-cloud-sun"></i>
-                    <a href="#">Weather</a>
-                </div>
-                <div class="flex flex-col items-center gap-2 text-gray-300 hover:text-sky-400 cursor-pointer">
-                    <i class="fa-solid fa-city" ></i>
-                    <a href="#">Cities</a>
-                </div>
-                <div class="flex flex-col items-center gap-2 text-gray-300 hover:text-sky-400 cursor-pointer">
+                    <span>Weather</span>
+                </button>
+
+                <button onclick="showSection('cities')" class="flex flex-col items-center gap-2 hover:text-sky-400 cursor-pointer">
+                    <i class="fa-solid fa-city"></i>
+                    <span>Cities</span>
+                </button>
+
+                <button onclick="showSection('settings')" class="flex flex-col items-center gap-2 hover:text-sky-400 cursor-pointer">
                     <i class="fa-solid fa-gear"></i>
-                    <a href="#">Settings</a>
-                </div>
+                    <span>Settings</span>
+                </button>
             </nav>
         </aside>
+
 
         <div class="content p-6 rounded-lg flex flex-col gap-6">
         
