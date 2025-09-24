@@ -168,7 +168,7 @@ async function searchPokemon() {
 
   document.getElementById("no-results-message").classList.add("hidden");
   document.getElementById("no-results-message").classList.remove("show");
-  document.getElementById("random-button").classList.remove("hidden");
+  document.getElementById("pokemon-controls").classList.remove("hidden");
 
   if (!query) {
     currentPage = 0;
@@ -217,7 +217,7 @@ async function searchPokemon() {
 
 function showNoResultsMessage() {
   document.getElementById("loading-spinner").classList.add("hidden");
-  document.getElementById("random-button").classList.add("hidden");
+  document.getElementById("pokemon-controls").classList.add("hidden");
 
   const noResultsMessage = document.getElementById("no-results-message");
   noResultsMessage.classList.remove("hidden");
@@ -278,6 +278,7 @@ async function loadRandomPokemon() {
     )
   );
   document.getElementById("loading-spinner").classList.add("hidden");
+  filteredPokemon = [];
   displayPokemon(pokemonDetails);
 }
 

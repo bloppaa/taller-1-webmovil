@@ -79,7 +79,7 @@
             Ningún Pokémon coincide con tu búsqueda.
           </p>
         </div>
-        <div class="flex justify-center">
+        <div id="pokemon-controls" class="flex justify-evenly w-full">
           <button
             id="random-button"
             class="bg-sky-500 hover:bg-sky-600 text-white font-semibold px-6 py-2 rounded-md cursor-pointer transition-colors"
@@ -87,6 +87,19 @@
             <i class="fa-solid fa-shuffle"></i>
             ¡Sorpréndeme!
           </button>
+          <div class="">
+            <label for="pokemon" class="font-semibold text-lg mr-2"
+              >Ordenar por</label
+            >
+            <select
+              id="pokemon"
+              name="pokemon"
+              class="p-3 rounded-lg bg-black text-white"
+            >
+              <option value="inf">Número inferior</option>
+              <option value="sup">Número superior</option>
+            </select>
+          </div>
         </div>
         <div role="status" class="mt-5 hidden" id="loading-spinner">
           <svg
