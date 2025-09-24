@@ -41,11 +41,21 @@
           <div class="w-full h-24 max-w-3xl px-12 flex flex-col gap-4">
             <div class="text-white text-2xl">Nombre o número</div>
             <div class="flex justify-between gap-2">
-              <input
-                id="search-input"
-                type="text"
-                class="w-full h-10 rounded-md bg-white px-4 mr-2"
-              />
+              <div class="relative w-full">
+                <input
+                  id="search-input"
+                  type="text"
+                  class="w-full h-10 rounded-md bg-white px-4 mr-2"
+                />
+                <button
+                  id="clear-button"
+                  type="button"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                  style="display: none"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
               <button
                 id="search-button"
                 class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-2 rounded-md cursor-pointer transition-colors"
