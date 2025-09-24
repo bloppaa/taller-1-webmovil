@@ -5,6 +5,7 @@ let currentPage = 0;
 let filteredPokemon = [];
 let previousSearch = "";
 let isRandomMode = false;
+let isReversedOrder = false;
 
 const typeES = {
   normal: "Normal",
@@ -80,6 +81,27 @@ async function fetchSearchPokemon(query) {
   }
 }
 
+async function fetchReversePokemon() {
+  try {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon?limit=${TOTAL_POKEMON_REAL}`
+    );
+    const data = await response.json();
+    const reversedResults = data.results
+      .slice(
+        TOTAL_POKEMON_REAL - LIMIT * (currentPage + 1),
+        TOTAL_POKEMON_REAL - LIMIT * currentPage
+      )
+      .reverse();
+    const pokemonDetails = await Promise.all(
+      reversedResults.map((pokemon) => getPokemonDetails(pokemon.url))
+    );
+    return pokemonDetails;
+  } catch (error) {
+    console.error("Error fetching reverse Pokémon:", error);
+  }
+}
+
 async function fetchPokemon(limit = LIMIT, offset = 0) {
   try {
     const response = await fetch(
@@ -95,10 +117,18 @@ async function fetchPokemon(limit = LIMIT, offset = 0) {
   }
 }
 
+function formatPokemonName(name) {
+  return name
+    .split("-")
+    .map((part) => capitalizeFirstLetter(part))
+    .join(" ");
+}
+
 async function getPokemonDetails(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
+    data.name = formatPokemonName(data.name);
     return data;
   } catch (error) {
     console.error("Error fetching Pokémon details:", error);
@@ -174,6 +204,7 @@ async function searchPokemon() {
     currentPage = 0;
     filteredPokemon = [];
     isRandomMode = false;
+    isReversedOrder = false;
 
     document.getElementById("pokemon-container").innerHTML = "";
     document.getElementById("load-more-button").classList.add("hidden");
@@ -207,6 +238,7 @@ async function searchPokemon() {
 
     currentPage = 0;
     isRandomMode = false;
+    isReversedOrder = false;
     displayPokemon(filteredPokemon.slice(0, LIMIT));
 
     document.getElementById("loading-spinner").classList.add("hidden");
@@ -255,7 +287,9 @@ async function loadMorePokemon() {
     displayPokemon(nextBatch);
   } else {
     try {
-      const newPokemon = await fetchPokemon(LIMIT, offset);
+      const newPokemon = isReversedOrder
+        ? await fetchReversePokemon()
+        : await fetchPokemon(LIMIT, offset);
       displayPokemon(newPokemon);
     } catch (error) {
       console.error("Error loading more Pokémon:", error);
@@ -282,6 +316,34 @@ async function loadRandomPokemon() {
   displayPokemon(pokemonDetails);
 }
 
+function resetVariables() {
+  currentPage = 0;
+  filteredPokemon = [];
+  isRandomMode = false;
+  isReversedOrder = false;
+}
+
+const orderSelect = document.getElementById("pokemon-order-select");
+orderSelect.addEventListener("change", async function () {
+  document.getElementById("pokemon-container").innerHTML = "";
+  const order = this.value;
+
+  if (order === "inf") {
+    resetVariables();
+    loadMoreBtn.classList.add("hidden");
+    const pokemonList = await fetchPokemon(LIMIT, 0);
+    displayPokemon(pokemonList);
+    loadMoreBtn.classList.remove("hidden");
+  } else if (order === "sup") {
+    resetVariables();
+    isReversedOrder = true;
+    loadMoreBtn.classList.add("hidden");
+    const pokemonList = await fetchReversePokemon();
+    displayPokemon(pokemonList);
+    loadMoreBtn.classList.remove("hidden");
+  }
+});
+
 const randomBtn = document.getElementById("random-button");
 randomBtn.addEventListener("click", () => {
   isRandomMode = true;
@@ -291,9 +353,8 @@ randomBtn.addEventListener("click", () => {
   loadRandomPokemon();
 });
 
-document
-  .getElementById("load-more-button")
-  .addEventListener("click", loadMorePokemon);
+const loadMoreBtn = document.getElementById("load-more-button");
+loadMoreBtn.addEventListener("click", loadMorePokemon);
 
 document
   .getElementById("search-button")
@@ -319,5 +380,6 @@ searchInput.addEventListener("input", function () {
 (async () => {
   const pokemonList = await fetchPokemon();
   document.getElementById("search-input").value = "";
+  orderSelect.value = "inf";
   displayPokemon(pokemonList);
 })();
