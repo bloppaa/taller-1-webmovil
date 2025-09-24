@@ -1,5 +1,6 @@
 const LIMIT = 12;
 const TOTAL_POKEMON = 1302;
+const TOTAL_POKEMON_REAL = 1025;
 let currentPage = 0;
 let filteredPokemon = [];
 let previousSearch = "";
@@ -59,6 +60,24 @@ const whiteTextTypes = [
   "poison",
   "rock",
 ];
+
+async function fetchSearchPokemon(query) {
+  try {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon?limit=${TOTAL_POKEMON}&offset=0`
+    );
+    const data = await response.json();
+    const urls = data.results
+      .filter((pokemon) => pokemon.name.includes(query))
+      .map((pokemon) => pokemon.url);
+    const pokemonDetails = await Promise.all(
+      urls.map((url) => getPokemonDetails(url))
+    );
+    return pokemonDetails;
+  } catch (error) {
+    console.error("Error fetching search Pokémon:", error);
+  }
+}
 
 async function fetchPokemon(limit = LIMIT, offset = 0) {
   try {
@@ -127,6 +146,16 @@ function createPokemonCard(pokemon) {
   return div;
 }
 
+function isValidPokemonNumber(str) {
+  const num = Number(str);
+  return (
+    !isNaN(num) &&
+    Number.isInteger(num) &&
+    num >= 1 &&
+    num <= TOTAL_POKEMON_REAL
+  );
+}
+
 async function searchPokemon() {
   const query = document
     .getElementById("search-input")
@@ -157,10 +186,17 @@ async function searchPokemon() {
   document.getElementById("pokemon-container").innerHTML = "";
 
   try {
-    const pokemon = await fetchPokemon(TOTAL_POKEMON, 0);
-    filteredPokemon = pokemon.filter((p) =>
-      p.name.toLowerCase().includes(query)
-    );
+    if (isValidPokemonNumber(query)) {
+      const pokemon = await getPokemonDetails(
+        `https://pokeapi.co/api/v2/pokemon/${query}`
+      );
+      filteredPokemon = [pokemon];
+    } else {
+      const pokemon = await fetchSearchPokemon(query);
+      filteredPokemon = pokemon.filter((p) =>
+        p.name.toLowerCase().includes(query)
+      );
+    }
     if (filteredPokemon.length === 0) {
       showNoResultsMessage();
       return;
