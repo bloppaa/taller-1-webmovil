@@ -11,6 +11,7 @@ const uvIndex = document.getElementById("uv-index");
 const dayForecast = document.getElementById("today-forecast");
 const weekForecast = document.getElementById("week-forecast");
 const weatherIcon = document.getElementById("weather-icon");
+const searchBar = document.getElementById("search-bar");
 
 const icons = {
   clear_day:
@@ -176,8 +177,22 @@ function updatePage(weather) {
   createWeekForecastElements(weather.week);
 }
 
+searchBar.addEventListener("keypress", async (e) => {
+  if (e.key === "Enter") {
+    const city = e.target.value.trim();
+    if (city) {
+      const [lat, lon, cityName] = await getLatLon(city);
+      const weatherData = await getWeather(lat, lon);
+      const weather = parseWeatherData(weatherData, cityName);
+
+      updatePage(weather);
+      e.target.value = "";
+    }
+  }
+});
+
 (async () => {
-  const [lat, lon, city] = await getLatLon("Coquimbo");
+  const [lat, lon, city] = await getLatLon("ovalle");
   const weatherData = await getWeather(lat, lon);
   const weather = parseWeatherData(weatherData, city);
 
