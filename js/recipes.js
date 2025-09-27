@@ -74,5 +74,4 @@ class RecipesAPI {
   }
 }
 
-// Exportar para uso global
 window.RecipesAPI = RecipesAPI;
