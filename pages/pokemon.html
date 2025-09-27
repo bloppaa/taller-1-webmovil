@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Pokémon</title>
+
+    <link rel="stylesheet" href="../css/styles.css" />
+
+    <link rel="stylesheet" href="../css/pokemon.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+
+  <body>
+    <template id="pokemon-card-template">
+      <div class="pokemon-card">
+        <div class="aspect-square bg-gray-200 rounded-xl">
+          <img class="pokemon-image" />
+        </div>
+
+        <p class="pokemon-id pl-2 text-gray-500 font-semibold text-sm"></p>
+
+        <p class="pokemon-name pl-2 pt-2 text-lg font-semibold"></p>
+
+        <div class="pl-2">
+          <span
+            class="pokemon-type inline-block text-xs px-2 rounded-sm w-18 text-center"
+          ></span>
+
+          <span
+            class="pokemon-type inline-block text-xs px-2 rounded-sm w-18 text-center"
+          ></span>
+        </div>
+      </div>
+    </template>
+
+    <!-- Container principal -->
+
+    <div class="flex justify-center">
+      <div class="flex flex-col items-center max-w-3xl m-8 gap-6">
+        <div class="w-full text-3xl text-zinc-500 ml-4">Pokédex</div>
+
+        <div
+          class="black-div bg-zinc-800 py-6 w-screen gap-4 flex flex-col justify-center items-center"
+        >
+          <div class="search-div w-full h-24 px-12 flex flex-col gap-4">
+            <div class="text-white text-2xl">Nombre o número</div>
+
+            <div class="flex justify-between gap-2">
+              <div class="relative w-full">
+                <input
+                  id="search-input"
+                  type="text"
+                  class="w-full h-10 rounded-md bg-white px-4 mr-2"
+                />
+
+                <button
+                  id="clear-button"
+                  type="button"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                  style="display: none"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+
+              <button
+                id="search-button"
+                class="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-2 rounded-md cursor-pointer transition-colors"
+              >
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="search-info text-white bg-green-600 rounded-xl mx-4 p-4 text-xl"
+          >
+            Busca un Pokémon por su nombre o usando su número de la Pokédex
+            Nacional.
+          </div>
+        </div>
+
+        <div
+          id="no-results-message"
+          class="hidden flex flex-col items-center gap-4"
+        >
+          <p class="text-red-400 text-xl font-semibold">
+            Ningún Pokémon coincide con tu búsqueda.
+          </p>
+        </div>
+
+        <div id="pokemon-controls" class="flex justify-evenly w-full">
+          <button
+            id="random-button"
+            class="bg-sky-500 hover:bg-sky-600 text-white font-semibold px-6 py-2 rounded-md cursor-pointer transition-colors"
+          >
+            <i class="fa-solid fa-shuffle"></i>
+
+            ¡Sorpréndeme!
+          </button>
+
+          <div class="">
+            <label for="pokemon-order-select" class="font-semibold text-lg mr-2"
+              >Ordenar por</label
+            >
+
+            <select
+              id="pokemon-order-select"
+              name="pokemon"
+              class="p-3 rounded-lg bg-black text-white"
+            >
+              <option value="inf">Número inferior</option>
+
+              <option value="sup">Número superior</option>
+            </select>
+          </div>
+        </div>
+
+        <div role="status" class="mt-5 hidden" id="loading-spinner">
+          <svg
+            aria-hidden="true"
+            class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            viewBox="0 0 100 101"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+              fill="currentColor"
+            />
+
+            <path
+              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+              fill="currentFill"
+            />
+          </svg>
+
+          <span class="sr-only">Loading...</span>
+        </div>
+
+        <div
+          id="pokemon-container"
+          class="flex flex-wrap justify-center gap-6 mx-4"
+        ></div>
+
+        <div class="flex justify-center">
+          <button
+            id="load-more-button"
+            class="hidden mt-8 bg-sky-500 hover:bg-sky-600 text-white font-semibold px-6 py-2 rounded-md cursor-pointer transition-colors"
+          >
+            Cargar más Pokémon
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="../js/pokemon.js"></script>
+</html>
