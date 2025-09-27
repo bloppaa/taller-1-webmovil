@@ -141,7 +141,11 @@ function capitalizeFirstLetter(string) {
 
 function createPokemonCard(pokemon) {
   const template = document.getElementById("pokemon-card-template");
-  const div = template.content.cloneNode(true).querySelector("div");
+  const div = template.content.cloneNode(true).querySelector("a");
+
+  if (pokemon.id <= TOTAL_POKEMON_REAL) {
+    div.href = `https://www.pokemon.com/es/pokedex/${pokemon.id}`;
+  }
 
   div.querySelector(".pokemon-image").src =
     pokemon.sprites.other["official-artwork"].front_default;
