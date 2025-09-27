@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../css/weather.css" />
+  </head>
+  <body class="bg-[#0B131E]">
+    <div id="container">
+      <div id="content">
+        <div id="header">
+          <div id="search-bar">
+            <input
+              type="text"
+              class="flex-1 bg-transparent border-none outline-none text-gray-300 py-6 px-4"
+              placeholder="Buscar ciudades"
+            />
+          </div>
+          <div class="header-spacer"></div>
+        </div>
+        <div id="main-content">
+          <div id="left-content">
+            <div id="main-view">
+              <div class="main-info">
+                <div>
+                  <div
+                    id="city-name"
+                    class="text-white text-3xl font-semibold"
+                  ></div>
+                </div>
+                <div
+                  id="temperature"
+                  class="text-white text-5xl font-semibold"
+                ></div>
+              </div>
+              <div id="weather-icon" class="weather-icon">
+                <img />
+              </div>
+            </div>
+            <div class="today-forecast-container">
+              <div class="h-6 text-sm font-semibold text-gray-400">
+                PRONÓSTICO DE HOY
+              </div>
+              <template id="today-forecast-template">
+                <div
+                  class="day-forecast flex flex-col flex-1 border-r border-gray-600 gap-2"
+                >
+                  <div
+                    class="day-time text-gray-400 font-semibold flex justify-center items-end"
+                  ></div>
+                  <div
+                    class="day-icon text-5xl flex items-center justify-center"
+                  ></div>
+                  <div
+                    class="day-temp flex justify-center text-white font-semibold text-2xl items-start"
+                  ></div>
+                </div>
+              </template>
+              <div id="today-forecast"></div>
+            </div>
+            <div id="air-conditions">
+              <div class="font-semibold text-gray-400 text-sm">
+                CONDICIONES DEL AIRE
+              </div>
+              <div class="air-conditions-flex">
+                <div class="flex-1 flex flex-col">
+                  <div class="flex-1 flex flex-col justify-center">
+                    <div class="text-gray-400">
+                      <i
+                        class="text-xl mr-2 fa-solid fa-temperature-three-quarters"
+                      ></i
+                      >Sensación térmica
+                    </div>
+                    <div
+                      id="real-feel"
+                      class="text-white text-2xl ml-5 font-semibold"
+                    ></div>
+                  </div>
+                  <div class="flex-1 flex flex-col justify-center">
+                    <div class="text-gray-400">
+                      <i class="fa-solid fa-droplet mr-2"></i>Probabilidad de
+                      lluvia
+                    </div>
+                    <div
+                      id="rain-chance"
+                      class="text-white ml-5 text-2xl font-semibold"
+                    ></div>
+                  </div>
+                </div>
+                <div class="flex-1 flex flex-col">
+                  <div class="flex-1 flex flex-col justify-center">
+                    <div class="text-gray-400">
+                      <i class="fa-solid fa-wind mr-2"></i>Viento
+                    </div>
+                    <div
+                      id="wind-speed"
+                      class="text-white ml-6 text-2xl font-semibold"
+                    ></div>
+                  </div>
+                  <div class="flex-1 flex flex-col justify-center">
+                    <div class="text-gray-400">
+                      <i class="fa-solid fa-sun mr-2"></i>Índice UV
+                    </div>
+                    <div
+                      id="uv-index"
+                      class="text-white ml-6 text-2xl font-semibold"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="week-forecast">
+            <div class="text-sm text-gray-400 font-semibold">
+              PRONÓSTICO DE 7 DÍAS
+            </div>
+            <template id="week-row-template">
+              <div
+                class="week-row flex-1 flex justify-between items-center border-b border-gray-600"
+              >
+                <div class="week-day text-gray-400 flex-1"></div>
+                <div class="flex flex-2 items-center gap-3">
+                  <div class="week-icon text-3xl"></div>
+                  <div class="week-desc text-white font-semibold"></div>
+                </div>
+                <div class="flex-1 flex justify-end">
+                  <span class="week-max text-white"></span
+                  ><span class="week-min text-gray-400"></span>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="../js/weather.js"></script>
+  <style></style>
+</html>
