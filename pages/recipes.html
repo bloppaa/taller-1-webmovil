@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recetas - WebMóvil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/recipes.css" />
+  </head>
+  <body class="bg-gray-100 min-h-screen">
+    <header class="bg-orange-600 text-white p-4 shadow-md">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-bold">Recetas Deliciosas</h1>
+          <p class="text-sm">Descubre recetas increíbles</p>
+        </div>
+        <button
+          onclick="window.location.href='../index.html'"
+          class="bg-orange-700 hover:bg-orange-800 px-4 py-2 rounded transition"
+        >
+          ← Volver al inicio
+        </button>
+      </div>
+    </header>
+
+    <div class="bg-white p-4 shadow-sm">
+      <div class="max-w-4xl mx-auto">
+        <div class="search-bar-flex">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Buscar recetas (ej: pasta, pollo, vegetariano...)"
+            class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+          />
+          <button
+            onclick="searchRecipes()"
+            class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg transition"
+          >
+            Buscar
+          </button>
+          <button
+            onclick="loadRandomRecipes()"
+            class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg transition"
+          >
+            Aleatorias
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <main class="max-w-6xl mx-auto p-4">
+      <div id="loading" class="hidden text-center py-8">
+        <div
+          class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"
+        ></div>
+        <p class="mt-2 text-gray-600">Cargando recetas...</p>
+      </div>
+
+      <div
+        id="error"
+        class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+      >
+        <span id="errorMessage"></span>
+      </div>
+
+      <div id="recipesGrid" class="recipes-grid"></div>
+    </main>
+
+    <div
+      id="recipeModal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+    >
+      <div class="bg-white rounded-lg max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-4">
+            <h2 id="modalTitle" class="text-2xl font-bold text-gray-800"></h2>
+            <button
+              onclick="closeModal()"
+              class="text-gray-500 hover:text-gray-700 text-2xl"
+            >
+              &times;
+            </button>
+          </div>
+          <div id="modalContent"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/recipes.js"></script>
+    <script>
+      let recipesAPI;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        recipesAPI = new RecipesAPI();
+        loadRandomRecipes();
+
+        document
+          .getElementById("searchInput")
+          .addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              searchRecipes();
+            }
+          });
+      });
+
+      function showLoading() {
+        document.getElementById("loading").classList.remove("hidden");
+        document.getElementById("error").classList.add("hidden");
+      }
+
+      function hideLoading() {
+        document.getElementById("loading").classList.add("hidden");
+      }
+
+      function showError(message) {
+        document.getElementById("errorMessage").textContent = message;
+        document.getElementById("error").classList.remove("hidden");
+        hideLoading();
+      }
+
+      async function loadRandomRecipes() {
+        showLoading();
+        try {
+          const recipes = await recipesAPI.getRandomRecipes(9);
+          displayRecipes(recipes);
+          hideLoading();
+        } catch (error) {
+          showError(
+            "Error al cargar recetas aleatorias. Verifica tu conexión a internet."
+          );
+        }
+      }
+
+      async function searchRecipes() {
+        const query = document.getElementById("searchInput").value.trim();
+        if (!query) {
+          alert("Por favor ingresa un término de búsqueda");
+          return;
+        }
+
+        showLoading();
+        try {
+          const recipes = await recipesAPI.searchRecipes(query, 12);
+          displayRecipes(recipes);
+          hideLoading();
+        } catch (error) {
+          showError(
+            "Error al buscar recetas. Verifica tu conexión a internet."
+          );
+        }
+      }
+
+      function displayRecipes(recipes) {
+        const grid = document.getElementById("recipesGrid");
+
+        if (!recipes || recipes.length === 0) {
+          grid.innerHTML = `
+                    <div class="col-span-full text-center py-8">
+                        <p class="text-gray-500 text-lg">No se encontraron recetas</p>
+                    </div>
+                `;
+          return;
+        }
+
+        grid.innerHTML = recipes
+          .map(
+            (recipe) => `
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition cursor-pointer" 
+                     onclick="showRecipeDetails(${recipe.id})">
+                    <img src="${
+                      recipe.image ||
+                      "https://via.placeholder.com/300x200?text=Sin+Imagen"
+                    }" 
+                         alt="${recipe.title}" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2 line-clamp-2">${
+                          recipe.title
+                        }</h3>
+                        <div class="flex items-center justify-between text-sm text-gray-600">
+                            <span> ${recipe.readyInMinutes || "N/A"} min</span>
+                            <span> ${recipe.servings || "N/A"} porciones</span>
+                        </div>
+                        ${
+                          recipe.dishTypes && recipe.dishTypes.length > 0
+                            ? `
+                            <div class="mt-2">
+                                <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded">
+                                    ${recipe.dishTypes[0]}
+                                </span>
+                            </div>
+                        `
+                            : ""
+                        }
+                    </div>
+                </div>
+            `
+          )
+          .join("");
+      }
+
+      async function showRecipeDetails(recipeId) {
+        try {
+          showLoading();
+          const recipe = await recipesAPI.getRecipeDetails(recipeId);
+
+          document.getElementById("modalTitle").textContent = recipe.title;
+          document.getElementById("modalContent").innerHTML = `
+                    <img src="${recipe.image}" alt="${
+            recipe.title
+          }" class="w-full h-64 object-cover rounded mb-4">
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-center">
+                        <div class="bg-gray-100 p-2 rounded">
+                            <div class="font-bold">⏱️</div>
+                            <div class="text-sm">${
+                              recipe.readyInMinutes
+                            } min</div>
+                        </div>
+                        <div class="bg-gray-100 p-2 rounded">
+                            <div class="font-bold">👥</div>
+                            <div class="text-sm">${
+                              recipe.servings
+                            } porciones</div>
+                        </div>
+                        <div class="bg-gray-100 p-2 rounded">
+                            <div class="font-bold">💰</div>
+                            <div class="text-sm">$${(
+                              recipe.pricePerServing / 100
+                            ).toFixed(2)}</div>
+                        </div>
+                        <div class="bg-gray-100 p-2 rounded">
+                            <div class="font-bold">⭐</div>
+                            <div class="text-sm">${
+                              recipe.spoonacularScore
+                                ? Math.round(recipe.spoonacularScore)
+                                : "N/A"
+                            }</div>
+                        </div>
+                    </div>
+
+                    ${
+                      recipe.summary
+                        ? `
+                        <div class="mb-4">
+                            <h4 class="font-bold mb-2">Resumen:</h4>
+                            <div class="text-gray-700">${recipe.summary}</div>
+                        </div>
+                    `
+                        : ""
+                    }
+
+                    ${
+                      recipe.extendedIngredients &&
+                      recipe.extendedIngredients.length > 0
+                        ? `
+                        <div class="mb-4">
+                            <h4 class="font-bold mb-2">Ingredientes:</h4>
+                            <ul class="list-disc list-inside space-y-1">
+                                ${recipe.extendedIngredients
+                                  .map(
+                                    (ing) => `
+                                    <li class="text-gray-700">${ing.original}</li>
+                                `
+                                  )
+                                  .join("")}
+                            </ul>
+                        </div>
+                    `
+                        : ""
+                    }
+
+                    ${
+                      recipe.instructions
+                        ? `
+                        <div class="mb-4">
+                            <h4 class="font-bold mb-2">Instrucciones:</h4>
+                            <div class="text-gray-700">${recipe.instructions}</div>
+                        </div>
+                    `
+                        : ""
+                    }
+
+                    <div class="mt-4 flex gap-2">
+                        <button onclick="closeModal()" 
+                                class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded transition">
+                            Cerrar
+                        </button>
+                        <a href="${recipe.sourceUrl}" target="_blank" 
+                           class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded transition">
+                            Ver receta completa
+                        </a>
+                    </div>
+                `;
+
+          document.getElementById("recipeModal").classList.remove("hidden");
+          hideLoading();
+        } catch (error) {
+          showError("Error al cargar los detalles de la receta");
+        }
+      }
+
+      function closeModal() {
+        document.getElementById("recipeModal").classList.add("hidden");
+      }
+
+      document
+        .getElementById("recipeModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeModal();
+          }
+        });
+    </script>
+  </body>
+</html>
