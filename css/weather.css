@@ -1,0 +1,30 @@
+/* ============================
+   📱 Responsive para móviles
+   ============================ */
+@media (max-width: 768px) {
+  /* Cambia la dirección de los elementos principales */
+  #main-content {
+    flex-direction: column;
+  }
+
+  /* Hace que ambos bloques ocupen todo el ancho */
+  #left-content,
+  #week-forecast {
+    width: 100%;
+  }
+
+  /* Agrega separación visual */
+  #week-forecast {
+    margin-top: 1rem;
+  }
+
+  #main-content {
+  flex-direction: column !important;
+    }
+
+}
+
+
+
+
+
