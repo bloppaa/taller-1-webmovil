@@ -1,0 +1,93 @@
+/* Responsive layout for controls */
+.crypto-controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .crypto-controls {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+}
+body.dark-bg {
+  background: #181c24;
+}
+
+.crypto-flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.crypto-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #23283a;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  padding: 1rem 1.5rem;
+  min-width: 320px;
+  max-width: 400px;
+  width: 100%;
+  gap: 1.2rem;
+  transition: box-shadow 0.2s;
+  color: #f3f3f3;
+}
+.crypto-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.23);
+}
+
+.crypto-img-wrap {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #2d3347;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.crypto-image {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  display: block;
+}
+.crypto-info {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.crypto-name {
+  font-size: 1.1rem;
+  color: #fff;
+}
+.crypto-symbol {
+  font-size: 0.95rem;
+  color: #b0b8d1;
+}
+.crypto-price {
+  font-size: 1.1rem;
+  color: #7fffd4;
+}
+.crypto-change {
+  font-size: 1rem;
+}
+
+input#crypto-search,
+select#crypto-sort {
+  background: #23283a;
+  color: #f3f3f3;
+  border: 1px solid #444a5a;
+}
+input#crypto-search::placeholder {
+  color: #b0b8d1;
+}

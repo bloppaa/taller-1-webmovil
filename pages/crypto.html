@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criptomonedas</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="dark-bg">
+    <link rel="stylesheet" href="../css/crypto.css" />
+    <div
+      id="container"
+      class="container mx-auto flex flex-col min-h-screen py-6"
+    >
+      <div class="w-full flex-1 flex-col">
+        <div class="text-3xl font-bold mb-6 text-center text-white">
+          Criptomonedas
+        </div>
+        <div class="crypto-controls">
+          <input
+            id="crypto-search"
+            type="text"
+            placeholder="Buscar criptomoneda..."
+            class="border rounded px-4 py-2 w-80"
+          />
+          <select id="crypto-sort" class="border rounded px-4 py-2 w-60">
+            <option value="market_cap_desc">Mayor capitalización</option>
+            <option value="market_cap_asc">Menor capitalización</option>
+            <option value="price_desc">Precio más alto</option>
+            <option value="price_asc">Precio más bajo</option>
+            <option value="change_desc">Mayor cambio 24h</option>
+            <option value="change_asc">Menor cambio 24h</option>
+            <option value="name_asc">Nombre A-Z</option>
+            <option value="name_desc">Nombre Z-A</option>
+          </select>
+        </div>
+        <div
+          id="crypto-list"
+          class="crypto-flex-row flex flex-wrap gap-4 justify-center"
+        ></div>
+        <template id="crypto-card-template">
+          <div class="crypto-card">
+            <div class="crypto-img-wrap">
+              <img class="crypto-image" />
+            </div>
+            <div class="crypto-info">
+              <div class="crypto-name font-bold text-lg"></div>
+              <div class="crypto-symbol text-gray-400"></div>
+              <div class="crypto-price text-green-400 font-semibold"></div>
+              <div class="crypto-change"></div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </body>
+  <script src="../js/crypto.js"></script>
+</html>
